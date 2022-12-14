@@ -1,0 +1,29 @@
+{
+  "name": "fluent-curry",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "./dist/fluent-curry.umd.cjs",
+  "module": "./dist/fluent-curry.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/fluent-curry.js",
+      "require": "./dist/fluent-curry.umd.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.3",
+    "vite": "^4.0.0",
+    "vite-plugin-dts": "^1.7.1",
+    "vitest": "^0.25.8"
+  }
+}
