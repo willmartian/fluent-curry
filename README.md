@@ -8,7 +8,7 @@ Curry functions using a type-safe fluent API.
 import { fluentCurry } from "fluent-curry";
 
 const adLib = (args: { name: string; age: number; }) => {
-  return `${args.name} is ${args.adjective}.`;
+  return `${args.name} is ${args.age}.`;
 };
 
 const curried = fluentCurry(adLib);
