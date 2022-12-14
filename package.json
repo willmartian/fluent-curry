@@ -1,6 +1,12 @@
 {
   "name": "fluent-curry",
   "version": "0.0.0",
+  "author": "Will Martin (https://willmartian.com)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/willmartian/fluent-curry"
+  },
+  "license": "MIT",
   "type": "module",
   "main": "./dist/fluent-curry.umd.cjs",
   "module": "./dist/fluent-curry.js",
