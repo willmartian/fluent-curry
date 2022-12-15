@@ -41,9 +41,9 @@ curried('foo')('bar')('foobar');
 
 ```
 
-While terse, using positional arguments sacrifices readability. Furthemore, this syntax tends to trip up programmers with less functional programming experience.
+While terse, using positional arguments sacrifices readability. Furthermore, this syntax tends to trip up programmers with less functional programming experience.
 
-Traditional currying also makes it difficult to skip over optional arguments or create partial applications--usually, libraries rely on some sort of special skip value:
+Traditional currying also makes it difficult to skip over optional arguments or create partial applications--usually, libraries will rely on some sort of special skip value:
 
 ```ts
 import { _ } from 'some-curry-library';
