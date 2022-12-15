@@ -1,7 +1,21 @@
-import { expect, test } from "vitest";
-import { fluentCurry } from "../src/fluentCurry";
+import { describe, expect, test } from "vitest";
+import { fromList, fromObject } from "../src";
 
-const uncurried = (
+describe("fromObj", () => {
+  suite(
+    uncurriedObj({ name: "Will", age: 25, color: "Blue" }),
+    curriedObj,
+  );
+});
+
+describe("fromList", () => {
+  suite(
+    uncurriedList("Will", 25, "Blue"),
+    curriedList,
+  );
+});
+
+const uncurriedObj = (
   args: {
     name: string;
     age: number;
@@ -10,64 +24,71 @@ const uncurried = (
 ) => {
   return args;
 };
-const curried = fluentCurry(uncurried);
+const curriedObj = fromObject(uncurriedObj);
 
-test("basic", () => {
+const uncurriedList = (
+  name: string,
+  age: number,
+  color: string,
+) => {
+  return { name, age, color };
+};
+const curriedList = fromList(uncurriedList, ["name", "age", "color"]);
+
+const suite = (
+  baseRes: any,
+  curried: typeof curriedObj | typeof curriedList,
+) => {
+  test("basic", () => {
     expect(
-        uncurried({ name: 'Will', age: 25, color: 'Blue' })
+      baseRes,
     ).toEqual(
-        curried.name('Will').age(25).color('Blue').call()
-    )
-});
+      curried.name("Will").age(25).color("Blue").call(),
+    );
+  });
 
-test("partial applications", () => {
-    const baseRes = uncurried({ name: 'Bill', age: 25, color: 'Blue' });
-    const withName = curried.name('Bill');
-
+  test("partial applications", () => {
+    const withName = curried.name("Will");
     expect(
-        baseRes
+      baseRes,
     ).toEqual(
-        withName.age(25).color('Blue').call()
-    )
+      withName.age(25).color("Blue").call(),
+    );
 
     const withNameAge = withName.age(25);
-
     expect(
-        baseRes
+      baseRes,
     ).toEqual(
-        withNameAge.color('Blue').call()
-    )
+      withNameAge.color("Blue").call(),
+    );
 
-    const withAll = withNameAge.color('Blue');
-
+    const withAll = withNameAge.color("Blue");
     expect(
-        baseRes
+      baseRes,
     ).toEqual(
-        withAll.call()
-    )
-});
+      withAll.call(),
+    );
+  });
 
-test("call with params", () => {
-    const baseRes = uncurried({ name: 'Bill', age: 25, color: 'Blue' });
+  test("call with extra params", () => {
     expect(
-        baseRes
+      baseRes,
     ).toEqual(
-        curried.call({ name: 'Bill', age: 25, color: 'Blue' })
-    ) 
-    
-    const withName = curried.name('Bill');
+      curried.call({ name: "Will", age: 25, color: "Blue" }),
+    );
 
+    const withName = curried.name("Will");
     expect(
-        baseRes
+      baseRes,
     ).toEqual(
-        withName.call({ age: 25, color: 'Blue' })
-    )
+      withName.call({ age: 25, color: "Blue" }),
+    );
 
     const withNameAge = withName.age(25);
-
     expect(
-        baseRes
+      baseRes,
     ).toEqual(
-        withNameAge.call({ color: 'Blue' })
-    )
-});
+      withNameAge.call({ color: "Blue" }),
+    );
+  });
+};

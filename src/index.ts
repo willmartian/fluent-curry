@@ -1,1 +1,2 @@
-export * from './fluentCurry';
+export * from './fromList';
+export * from './fromObject';
