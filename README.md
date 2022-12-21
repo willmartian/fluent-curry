@@ -30,7 +30,7 @@ const adLib = (name: string, age: number) => {
 
 const curried = fluentCurry(adLib, ['name', 'age']);
 
-curried.name('Will').age(25).call() === adLib({ name: 'Will', age: 25 });
+curried.name('Will').age(25).call() === adLib('Will', 25);
 
 ```
 
