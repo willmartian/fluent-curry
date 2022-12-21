@@ -1,19 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { fromList, fromObject } from "../src";
-
-describe("fromObj", () => {
-  suite(
-    uncurriedObj({ name: "Will", age: 25, color: "Blue" }),
-    curriedObj,
-  );
-});
-
-describe("fromList", () => {
-  suite(
-    uncurriedList("Will", 25, "Blue"),
-    curriedList,
-  );
-});
+import { fluentCurry } from "../src";
 
 const uncurriedObj = (
   args: {
@@ -24,7 +10,7 @@ const uncurriedObj = (
 ) => {
   return args;
 };
-const curriedObj = fromObject(uncurriedObj);
+const curriedObj = fluentCurry(uncurriedObj);
 
 const uncurriedList = (
   name: string,
@@ -33,7 +19,7 @@ const uncurriedList = (
 ) => {
   return { name, age, color };
 };
-const curriedList = fromList(uncurriedList, ["name", "age", "color"]);
+const curriedList = fluentCurry(uncurriedList, ["name", "age", "color"]);
 
 const suite = (
   baseRes: any,
@@ -92,3 +78,18 @@ const suite = (
     );
   });
 };
+
+describe("fromObj", () => {
+  suite(
+    uncurriedObj({ name: "Will", age: 25, color: "Blue" }),
+    curriedObj,
+  );
+});
+
+describe("fromList", () => {
+  suite(
+    uncurriedList("Will", 25, "Blue"),
+    curriedList,
+  );
+});
+

@@ -2,7 +2,9 @@
 
 Curry functions using a type-safe fluent API.
 
-## Examples 
+## Example: Options object
+
+For functions that take a single object parameter, the type of the curried result is infered from the object parameter type.
 
 ```ts
 import { fluentCurry } from "fluent-curry";
@@ -15,11 +17,38 @@ const curried = fluentCurry(adLib);
 
 curried.name('Will').age(25).call() === adLib({ name: 'Will', age: 25 });
 
-// Partial Applications
+```
+
+## Example: Multiple paramters
+
+For functions that take multiple parameters, we must supply an array of paramter names in the same order that they appear in the function signature.
+
+```ts
+const adLib = (name: string, age: number) => {
+  return `${name} is ${age}.`;
+};
+
+const curried = fluentCurry(adLib, ['name', 'age']);
+
+curried.name('Will').age(25).call() === adLib({ name: 'Will', age: 25 });
+
+```
+
+## Partial Applications
+
+`fluent-curry` makes working with partial applications easy. Create reusable logic without a cumbersome `bind` method.
+
+```ts
 
 const partialWill = curried.name('Will');
 
 partialWill.age(25).call() === adLib({ name: 'Will', age: 25 });
+
+```
+
+Any parameters that have not been previously applied can be supplied in the `call` function as an options object.
+
+```ts
 
 // Call with Parameters
 
@@ -46,9 +75,23 @@ While terse, using positional arguments sacrifices readability. Furthermore, thi
 Traditional currying also makes it difficult to skip over optional arguments or create partial applications--usually, libraries will rely on some sort of special skip value:
 
 ```ts
-import { _ } from 'some-curry-library';
+import { _ } from 'some-other-curry-library';
 
 const partialBar = curried(_)('bar')(_);
 ```
 
 While the approach taken by `fluent-curry` definitely requires more typing, it is always clear to the developer what argument is being passed. Arguments can also occur in any order, and can be easily left off to create partial applications.
+
+```ts
+
+const curried = fluentCurry((a: number, b: number, c: number) => {
+  return a + b + c;
+}, ['a', 'b', 'c'])
+
+const abc = curried.a(1).b(2).c(3).call();
+const bca = curried.b(2).c(3).a(1).call();
+const cba = curried.c(3).b(2).a(1).call();
+const ab = curried.a(1).b(2);
+
+abc === bca === cba === ab.c(3).call();
+```
