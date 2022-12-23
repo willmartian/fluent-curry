@@ -66,7 +66,7 @@ curried.call({ name: 'Will', age: 25 }) === adLib({ name: 'Will', age: 25 });
 
 ## Why?
 
-Currying (and, relatedly, partial applications) are two powerful patterns in functional programming. However, the traditional approach to currying has poor syntax.
+Currying and partial applications are two powerful patterns in functional programming. However, the traditional approach to currying has poor syntax.
 
 ```ts
 const func = (a, b, c) => {}
