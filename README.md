@@ -4,21 +4,8 @@
 
 Curry functions using a type-safe fluent API.
 
-## Example: Options object
-
-For functions that take a single object parameter, the type of the curried result is infered from the object parameter type.
-
 ```ts
-import { fluentCurry } from "fluent-curry";
-
-const adLib = (args: { name: string; age: number; }) => {
-  return `${args.name} is ${args.age}.`;
-};
-
-const curried = fluentCurry(adLib);
-
-curried.name('Will').age(25).call() === adLib({ name: 'Will', age: 25 });
-
+curried.name('Will').age(25).call()
 ```
 
 ## Example: Multiple paramters
@@ -33,6 +20,23 @@ const adLib = (name: string, age: number) => {
 const curried = fluentCurry(adLib, ['name', 'age']);
 
 curried.name('Will').age(25).call() === adLib('Will', 25);
+
+```
+
+## Example: Options object
+
+For functions that take a single object parameter, the type of the curried result is infered from the object parameter type.
+
+```ts
+import { fluentCurry } from "fluent-curry";
+
+const adLib = (args: { name: string; age: number; }) => {
+  return `${args.name} is ${args.age}.`;
+};
+
+const curried = fluentCurry(adLib);
+
+curried.name('Will').age(25).call() === adLib({ name: 'Will', age: 25 });
 
 ```
 
