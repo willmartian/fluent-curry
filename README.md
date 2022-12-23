@@ -1,5 +1,6 @@
 # fluent-curry
 [![npm](https://img.shields.io/npm/v/fluent-curry)](https://www.npmjs.com/package/fluent-curry)
+[![bundlephobia](https://img.shields.io/bundlephobia/minzip/fluent-curry)](https://bundlephobia.com/package/fluent-curry)
 
 Curry functions using a type-safe fluent API.
 
